@@ -1,7 +1,7 @@
 import React from 'react'
 
-function Services() {
-    const serviceList =[
+function ServicesList() {
+       const serviceList =[
         {
             id:"001",
             name:"Electrician"
@@ -35,11 +35,12 @@ function Services() {
             name:"Women's Salon"
         }
     ]
-
   return <>
   <div className='container'>
-    <h2>Home serives at your doorstepss</h2>
-    {
+    <h2>sHome sserives at yssoaur adooarstsepssssssa
+        hello
+    </h2>
+    { 
         serviceList.map((e,i)=>{
             return <div key={i} style={{display:"flex",flexDirection:"row-reverse"}}>
                 <div>{e.name}</div>
@@ -47,7 +48,8 @@ function Services() {
         })
     }
   </div>
- </>
+  
+  </>
 }
 
-export default Services
+export default ServicesList

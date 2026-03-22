@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    watch: {
-      usePolling: true,
-    }
-  }
+  // server: {
+  //   watch: {
+  //     usePolling: true,
+  //     interval: 100
+  //   }
+  // }
 })
