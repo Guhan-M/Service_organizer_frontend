@@ -1,14 +1,40 @@
 import React from 'react'
-import Dashboard from './components/Dashboard'
-import Login from './components/Authenticate/Login'
-import Signup from './components/Authenticate/Signup'
-import ForgetPassword from './components/Authenticate/ForgetPass'
-import AllServicesPage from './components/Allservicespage'
+import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import AppRoutes from './utils/AppRoutes'
 
 function App() {
+  const router = createBrowserRouter(AppRoutes)
   return <>
+  <RouterProvider router={router} />
+  </>
+}
 
-  <Dashboard/>
+export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import AppRoutes from './utils/AppRoutes'
+
+
+// import Dashboard from './components/Dashboard'
+// import Login from './components/Authenticate/Login'
+// import Signup from './components/Authenticate/Signup'
+// import ForgetPassword from './components/Authenticate/ForgetPass'
+// import AllServicesPage from './components/Allservicespage'
+
+
   {/* <AllServicesPage/> */}
 
 
@@ -20,7 +46,3 @@ function App() {
 
 {/* Testing -- */}
   {/* <h2>Hello user</h2> */}
-  </>
-}
-
-export default App

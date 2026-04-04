@@ -3,7 +3,7 @@ import {
   MdHome, MdEmail, MdArrowBack, MdVerified, 
   MdElectricBolt, MdPlumbing, MdCarpenter, MdAcUnit 
 } from 'react-icons/md';
-
+import { useNavigate } from 'react-router-dom';
 /**
  * SHARED REUSABLES
  */
@@ -26,7 +26,6 @@ const Logo = () => (
 
 const InputField = ({ label, icon: Icon, placeholder }) => {
   const [focused, setFocused] = useState(false);
-
   return (
     <div style={{ marginBottom: 24, width: '100%' }}>
       <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#334155', marginBottom: 8 }}>
@@ -115,7 +114,8 @@ const LeftPanel = () => {
  * EXPORTED FORGOT PASSWORD PAGE
  */
 
-export default function ForgotPasswordPage() {
+export default function ForgotPasswordPage() {  
+  const Navigate = useNavigate();
   return (
     <div style={{
       display: 'flex', minHeight: '100vh', backgroundColor: '#ffffff',
@@ -155,7 +155,7 @@ export default function ForgotPasswordPage() {
             onMouseOut={(e) => e.currentTarget.style.color = '#64748B'}
           >
             <MdArrowBack size={18} />
-            <span>Back to Login</span>
+            <span onClick={()=>Navigate("/login")}>Back to Login</span>
           </div>
         </div>
       </div>

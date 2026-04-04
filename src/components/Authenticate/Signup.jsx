@@ -5,6 +5,7 @@ import {
 } from 'react-icons/md';
 /** * SHARED REUSABLES 
  */
+import { useNavigate } from 'react-router-dom';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -128,6 +129,7 @@ const LeftPanel = () => {
  */
 
 export default function SignupPage() {
+  const Navigate = useNavigate();
   return (
     <div style={{
       display: 'flex', minHeight: '100vh', backgroundColor: '#ffffff',
@@ -164,7 +166,7 @@ export default function SignupPage() {
               </label>
             </div>
 
-            <PrimaryBtn>Create Account</PrimaryBtn>
+            <PrimaryBtn onClick={()=>{Navigate("/signup")}} >Create Account</PrimaryBtn>
           </form>
 
           <p style={{ textAlign: 'center', fontSize: 14, color: '#64748B', fontWeight: 500, marginTop: 32 }}>

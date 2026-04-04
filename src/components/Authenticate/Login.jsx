@@ -3,7 +3,10 @@ import {
   MdHome, MdEmail, MdLock, MdVisibility, MdVisibilityOff, 
   MdElectricBolt, MdPlumbing, MdCarpenter, MdAcUnit, MdWaterDrop, MdVerified 
 } from 'react-icons/md';
-import { FaGoogle, FaApple } from 'react-icons/fa';
+// import { FaGoogle, FaApple } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+
 /**
  * SHARED REUSABLE COMPONENTS
  * (Defined at the top to ensure they are available for the main page)
@@ -173,6 +176,7 @@ const LeftPanel = () => {
  */
 
 export default function Login() {
+  const Navigate = useNavigate();
   return (
     <div style={{
       display: 'flex', minHeight: '100vh', backgroundColor: '#ffffff',
@@ -203,15 +207,26 @@ export default function Login() {
             <InputField label="Password" icon={MdLock} type="password" placeholder="••••••••" />
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 28 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#6366F1', cursor: 'pointer' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#6366F1', cursor: 'pointer' }} onClick={()=>Navigate("/forgetpassword")}>
                 Forgot Password?
               </span>
             </div>
 
             <PrimaryBtn>Sign In</PrimaryBtn>
           </form>
+          <p style={{ textAlign: 'center', fontSize: 14, color: '#64748B', fontWeight: 500,marginTop: 20 }}>
+            New to HomeFix? <span style={{ color: '#6366F1', fontWeight: 700, cursor: 'pointer' }} onClick={()=>Navigate("/signup")}>
+              Create an account
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          {/* <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '28px 0' }}>
+
+     {/* <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '28px 0' }}>
             <div style={{ flex: 1, height: 1, background: '#E2E8F0' }} />
             <span style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8' }}>OR CONTINUE WITH</span>
             <div style={{ flex: 1, height: 1, background: '#E2E8F0' }} />
@@ -221,14 +236,3 @@ export default function Login() {
             <SocialBtn icon={FaGoogle} label="Google" />
             <SocialBtn icon={FaApple} label="Apple" />
           </div> */} 
-
-          <p style={{ textAlign: 'center', fontSize: 14, color: '#64748B', fontWeight: 500,marginTop: 20 }}>
-            New to HomeFix? <span style={{ color: '#6366F1', fontWeight: 700, cursor: 'pointer' }}>
-              Create an account
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
