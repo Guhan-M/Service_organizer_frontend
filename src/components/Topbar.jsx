@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { use, useState} from "react";
 import {
   MdSearch, MdLocationOn, MdShoppingCart, MdStar,
   MdHome,  MdNotifications,
 } from "react-icons/md";
-
+import useLogout from "../hooks/useLogout";
 import 'react-bootstrap'
+import {useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function TopBar({ cartCount }) {
+const uselogoutnow = useLogout();
+const Navigate = useNavigate();
+const [open, setOpen] = useState(false);
+let role = sessionStorage.getItem('role')
+let name = sessionStorage.getItem('name')
+let nameInit = name ? name[0]:"";
+
+
+
+const Logout=async()=>{
+ uselogoutnow();
+  toast.success("Logout !")
+}
+
   return <>
     <nav style={{
       background:"#fff",
@@ -51,19 +67,20 @@ function TopBar({ cartCount }) {
       </div>
  
       {/* Right */}
+      
       <div style={{ display:"flex", alignItems:"center", gap:20, flexShrink:0 }}>
-        <div style={{ display:"flex", alignItems:"center", gap:4, color:"#6366F1", fontSize:13, fontWeight:600, cursor:"pointer" }}>
-          <MdLocationOn size={16} /> Chennai
-        </div>
+      {name ?  <div style={{ display:"flex", alignItems:"center", gap:4, color:"#6366F1", fontSize:16, fontWeight:600, cursor:"pointer"}}>
+           Booking History
+        </div> :""} 
  
-        <button style={{ background:"none", border:"none", cursor:"pointer", position:"relative", padding:4 }}>
+        {/* <button style={{ background:"none", border:"none", cursor:"pointer", position:"relative", padding:4 }}>
           <MdNotifications size={22} color="#64748B" />
           <span style={{
             position:"absolute", top:2, right:2,
             width:8, height:8, background:"#EF4444", borderRadius:"50%",
             border:"2px solid #fff"
           }} />
-        </button>
+        </button> */}
  
         <button style={{ background:"none", border:"none", cursor:"pointer", position:"relative", padding:4 }}>
           <MdShoppingCart size={22} color="#64748B" />
@@ -78,14 +95,84 @@ function TopBar({ cartCount }) {
             }}>{cartCount}</span>
           )}
         </button>
- 
-        <div style={{
+        <div style={{ position: "relative" }}>
+      {nameInit ? (
+        <>
+          {/* Avatar */}
+          <div
+            onClick={() => setOpen(!open)}
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg,#6366F1,#8B5CF6)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontWeight: 700,
+              fontSize: 14,
+              cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(99,102,241,0.35)"
+            }}
+          >
+            {nameInit}
+          </div>
+
+          {/* Dropdown */}
+          {open && (
+            <div
+              style={{
+                position: "absolute",
+                top: 45,
+                right: 0,
+                background: "#fff",
+                borderRadius: 8,
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                padding: "8px 0",
+                width: 120,
+                transition: "0.2s ease"
+              }}
+            >
+              <div
+                onClick={Logout}
+                style={{
+                  padding: "8px 12px",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => (e.target.style.background = "#f3f4f6")}
+                onMouseLeave={(e) => (e.target.style.background = "transparent")}
+              >
+                Logout
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        /* Login Button */
+        <button
+          style={{
+            padding: "8px 16px",
+            borderRadius: 6,
+            border: "none",
+            background: "#6366F1",
+            color: "#fff",
+            cursor: "pointer"
+          }}
+          onClick={()=>
+            Navigate('/login')}
+        >
+          Login
+        </button>
+      )}
+    </div>
+        {/* <div style={{
           width:36, height:36, borderRadius:"50%",
           background:"linear-gradient(135deg,#6366F1,#8B5CF6)",
           display:"flex", alignItems:"center", justifyContent:"center",
           color:"#fff", fontWeight:700, fontSize:14, cursor:"pointer",
           boxShadow:"0 2px 8px rgba(99,102,241,0.35)"
-        }}>A</div>
+        }}>{nameInit}</div> */}
       </div>
     </nav>
 

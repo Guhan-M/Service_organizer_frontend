@@ -4,6 +4,10 @@ import {
   MdElectricBolt, MdPlumbing, MdCarpenter, MdAcUnit 
 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import AxiosService from '../../utils/AxiosService';
+import ApiRoutes from '../../utils/ApiRoutes';
+import toast from 'react-hot-toast';
+
 /**
  * SHARED REUSABLES
  */
@@ -24,7 +28,7 @@ const Logo = () => (
   </div>
 );
 
-const InputField = ({ label, icon: Icon, placeholder }) => {
+const InputField = ({ label, icon: Icon, placeholder,name}) => {
   const [focused, setFocused] = useState(false);
   return (
     <div style={{ marginBottom: 24, width: '100%' }}>
@@ -40,6 +44,7 @@ const InputField = ({ label, icon: Icon, placeholder }) => {
         </div>
         <input
           type="email"
+          name={name}
           placeholder={placeholder}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -116,6 +121,22 @@ const LeftPanel = () => {
 
 export default function ForgotPasswordPage() {  
   const Navigate = useNavigate();
+  
+  const onSubmit =async(e)=>{
+    e.preventDefault();
+    try{
+      console.log("hello")
+      let formdata = new FormData (e.target)
+      let data = Object.fromEntries(formdata)
+      let res = await AxiosService.post(ApiRoutes.FORGET_PASS.path,data)
+      if(res.status==200){
+        toast.success("Email sent successfully, Kindly check Mail for update password");
+        Navigate(`/login`)
+      }}
+    catch(e){
+      console.log(e)
+    }
+  }
   return (
     <div style={{
       display: 'flex', minHeight: '100vh', backgroundColor: '#ffffff',
@@ -139,8 +160,8 @@ export default function ForgotPasswordPage() {
             No stress! Enter your Gmail and we'll send you a reset link.
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()}>
-            <InputField label="Gmail Address" icon={MdEmail} placeholder="yourname@gmail.com" />
+          <form onSubmit={onSubmit}>
+            <InputField label="Gmail Address" icon={MdEmail} placeholder="yourname@gmail.com" name="email"/>
 
             <PrimaryBtn>Send Reset Link</PrimaryBtn>
           </form>

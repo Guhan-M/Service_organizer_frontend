@@ -5,7 +5,10 @@ import {
 } from 'react-icons/md';
 /** * SHARED REUSABLES 
  */
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
+import AxiosService from '../../utils/AxiosService';
+import ApiRoutes from '../../utils/ApiRoutes';
+import toast from 'react-hot-toast';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -23,13 +26,14 @@ const Logo = () => (
   </div>
 );
 
-const InputField = ({ label, icon: Icon, type = "text", placeholder }) => {
+const InputField = ({ label, icon: Icon, type = "text", placeholder,name}) => {
   const [focused, setFocused] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
   return (
     <div style={{ marginBottom: 18, width: '100%' }}>
-      <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#334155', marginBottom: 6 }}>
+      <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#334155', marginBottom: 6 }}
+      required >
         {label}
       </label>
       <div style={{ position: 'relative' }}>
@@ -41,6 +45,7 @@ const InputField = ({ label, icon: Icon, type = "text", placeholder }) => {
         </div>
         <input
           type={type === "password" && showPass ? "text" : type}
+          name={name}
           placeholder={placeholder}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -128,8 +133,34 @@ const LeftPanel = () => {
  * EXPORTED SIGNUP PAGE
  */
 
+
+
 export default function SignupPage() {
   const Navigate = useNavigate();
+
+  const handlesumbit= async(e)=>{
+    e.preventDefault();
+    try{
+      console.log("signup button")
+      let formdata = new FormData (e.target)
+      let data = Object.fromEntries(formdata)
+      let updata = {
+          name : data.name,
+         email : data.email,
+        password : data.password
+      }
+      
+      console.log(updata)
+      let res = await AxiosService.post(ApiRoutes.USER_CREATE.path,updata);
+      if(res.status == 201){
+        toast.success("Signup Successfully!");
+        Navigate("/login")
+      }
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
   return (
     <div style={{
       display: 'flex', minHeight: '100vh', backgroundColor: '#ffffff',
@@ -153,11 +184,11 @@ export default function SignupPage() {
             Start managing your home services today.
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()}>
-            <InputField label="Name" icon={MdPerson} placeholder="Enter your full name" />
-            <InputField label="Gmail" icon={MdEmail} placeholder="yourname@gmail.com" />
-            <InputField label="Password" icon={MdLock} type="password" placeholder="Create a strong password" />
-            <InputField label="Confirm Password" icon={MdLock} type="password" placeholder="Repeat your password" />
+          <form onSubmit={handlesumbit}>
+            <InputField label="Name" icon={MdPerson} placeholder="Enter your full name" name="name"/>
+            <InputField label="Gmail" icon={MdEmail} placeholder="yourname@gmail.com" name="email"/>
+            <InputField label="Password" icon={MdLock} type="password" placeholder="Create a strong password" name="password"/>
+            <InputField label="Confirm Password" icon={MdLock} type="password" placeholder="Repeat your password" name="confirmPassword"/>
 
             <div style={{ margin: '20px 0', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
               <input type="checkbox" style={{ marginTop: 4, cursor: 'pointer' }} id="terms" />

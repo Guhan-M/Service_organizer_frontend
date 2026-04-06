@@ -6,6 +6,7 @@ import CartPage from "../components/CartPage";
 import TechnicianPortal from "../components/Partners/TechnicianPortal";
 import Signup from '../components/Authenticate/Signup'
 import ForgetPass from '../components/Authenticate/ForgetPass'
+import ResetPass from '../components/Authenticate/ResetPass'
 
 const AppRoutes =[
     {
@@ -19,6 +20,10 @@ const AppRoutes =[
     {
         path:"/forgetPassword",
         element:<ForgetPass/>
+    },
+    {
+        path:"/resetPassword/:token",
+        element:<ResetPass/>
     },
     {
         path:"/dashboard",

@@ -18,18 +18,17 @@ function Dashboard() {
         cartCount={cartCount}     setCartCount={setCartCount}
         addedItems={addedItems}   setAddedItems={setAddedItems}
       /> 
-      <AllServicesPage 
+      {/* <AllServicesPage 
         cartCount={cartCount} 
         setCartCount={setCartCount} 
         addedItems={addedItems} 
         setAddedItems={setAddedItems} 
-      />
-
-        <CartPage 
+      /> */}
+        {/* <CartPage 
          addedItems={addedItems} 
          setAddedItems={setAddedItems} 
          setCartCount={setCartCount} 
-        />
+        /> */}
       <Footer />
    </div>
   </>
