@@ -3,7 +3,7 @@ import {
   MdDeleteOutline, MdOutlinePayments, MdOutlineLocalShipping, 
   MdChevronRight, MdKeyboardArrowLeft, MdVerified, MdOutlineInfo
 } from "react-icons/md";
-
+import { Navigate, useNavigate } from "react-router-dom";
 /* ─── SHARED DATA (Must match your AllServices.jsx IDs) ─── */
 const allServicesData = [
   { id: "c1", name: "Deep Home Cleaning", price: 2499, time: "5 hrs" },
@@ -21,7 +21,7 @@ const allServicesData = [
 
 export default function CartPage({ addedItems, setAddedItems, setCartCount }) {
   const [paymentMethod, setPaymentMethod] = useState("online");
-
+  const navigate = useNavigate();
   // Filter only items that are in the cart
   const cartItems = allServicesData.filter(item => addedItems?.[item.id]);
 
@@ -56,7 +56,7 @@ export default function CartPage({ addedItems, setAddedItems, setCartCount }) {
         
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32, cursor: "pointer", color: "#64748B" }}>
           <MdKeyboardArrowLeft size={24} />
-          <span style={{ fontWeight: 600 }}>Continue Shopping</span>
+          <span style={{ fontWeight: 600 }}  onClick={()=>navigate("/dashboard")}>Continue Shopping</span>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 32, alignItems: "start" }}>

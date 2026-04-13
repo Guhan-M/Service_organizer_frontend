@@ -1,7 +1,7 @@
 import Login from "../components/Authenticate/Login";
 import Dashboard from "../components/Dashboard";
 import { Navigate } from "react-router-dom";
-import AllServicesPage from "../components/Allservicespage";
+import AllServicesPage from "../components/Allservicespage"
 import CartPage from "../components/CartPage";
 import TechnicianPortal from "../components/Partners/TechnicianPortal";
 import Signup from '../components/Authenticate/Signup'
